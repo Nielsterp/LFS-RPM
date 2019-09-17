@@ -122,7 +122,7 @@ function _chapter_3 {
 		list+="${i} "
 	done < "${TOPDIR}/BOOK/wget-list"
 	list+="ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-1.16.tar.gz "
-	list+="http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2 "
+	list+="https://fossies.org/linux/misc/rpm-4.14.2.1.tar.bz2 "
 	list+="http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz "
 	list+="https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2 "
 	list+="https://ftp.gnu.org/gnu/wget/wget-1.20.1.tar.gz "
