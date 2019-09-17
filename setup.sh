@@ -121,7 +121,7 @@ function _chapter_3 {
 	while IFS= read -r i; do
 		list+="${i} "
 	done < "${TOPDIR}/BOOK/wget-list"
-	list+="http://rpm5.org/files/popt/popt-1.16.tar.gz "
+	list+="ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-1.16.tar.gz "
 	list+="http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2 "
 	list+="http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz "
 	list+="https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2 "
