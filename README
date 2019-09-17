@@ -78,7 +78,7 @@ BUILD PROCEDURE:
 	cd /mnt/lfs/usr/src			goto build directory
 	
 	Now fetch the build system it will go into /mnt/lfs/usr/src/LFS-RPM by default
-	git clone https://github.com/baho-utot/LFS-RPM.git
+	git clone https://github.com/nielsterp/LFS-RPM.git
 	
 	cd LFS-RPM				Lets do this
 	./setup.sh				setup environment and fetches source tarballs
