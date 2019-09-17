@@ -635,7 +635,7 @@ EOF
 	%config(noreplace)	/etc/resolv.conf
 	%config(noreplace)	/etc/shells
 	%config(noreplace)	/etc/sysconfig/clock
-	%config(noreplace)	/etc/sysconfig/ifconfig.eth0
+	%config(noreplace)	/etc/sysconfig/ifconfig.enp3s0
 	%config(noreplace)	/etc/mtab
 	%config(noreplace)	/var/log/faillog
 	%config(noreplace)	/var/lock
