@@ -193,6 +193,7 @@ function _symlinks {
 	_log="${LOGS}/symlinks"
 	> ${_log}
 	ln -vsf /tools/bin/{bash,cat,chmod,dd,echo,ln,mkdir,pwd,rm,stty,touch} /bin  >> "${_log}" 2>&1
+	install -vdm 755 /mnt/lfs/lib
 	ln -vsf /tools/bin/{env,install,perl,printf} /usr/bin >> "${_log}" 2>&1
 	ln -vsf /tools/lib/libgcc_s.so{,.1} /usr/lib >> "${_log}" 2>&1
 	ln -vsf /tools/lib/libstdc++.{a,so{,.6}} /usr/lib >> "${_log}" 2>&1
