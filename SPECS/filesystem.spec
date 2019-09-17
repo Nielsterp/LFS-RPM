@@ -93,14 +93,14 @@ EOF
 #-----------------------------------------------------------------------------
 #	7.5.1. Creating Network Interface Configuration Files
 #-----------------------------------------------------------------------------
-cat > %{buildroot}/etc/sysconfig/ifconfig.eth0 <<- "EOF"
+cat > %{buildroot}/etc/sysconfig/ifconfig.enp3s0 <<- "EOF"
 	ONBOOT=yes
-	IFACE=enp7s0
+	IFACE=enp3s0
 	SERVICE=ipv4-static
-	IP=192.168.1.2
-	GATEWAY=192.168.1.1
+	IP=192.168.0.108
+	GATEWAY=192.168.0.1
 	PREFIX=24
-	BROADCAST=192.168.1.255
+	BROADCAST=192.168.0.255
 EOF
 #-----------------------------------------------------------------------------
 #	7.5.2. Creating the /etc/resolv.conf File
@@ -108,24 +108,24 @@ EOF
 cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 # Begin /etc/resolv.conf
 
-	domain     example.org
-	nameserver <IP address of your primary nameserver>
-	nameserver <IP address of your secondary nameserver>
+	domain     nielsterp.dk
+	nameserver 8.8.8.8
+	nameserver 8.8.4.4
 
 # End /etc/resolv.conf
 EOF
 #-----------------------------------------------------------------------------
 #	7.5.3. Configuring the system hostname
 #-----------------------------------------------------------------------------
-echo "lfs.example.org" > %{buildroot}/etc/hostname
+echo "webhotel" > %{buildroot}/etc/hostname
 #-----------------------------------------------------------------------------
 #	7.5.4. Customizing the /etc/hosts File
 #-----------------------------------------------------------------------------
 cat > %{buildroot}/etc/hosts <<- "EOF"
 # Begin /etc/hosts
 
-	127.0.0.1	localhost
-	192.168.1.2	lfs.example.org lfs
+	127.0.0.1	localhost.localdomain	localhost
+	192.168.0.108	webhotel.nielsterp.dk	webhotel
 	::1		localhost ip6-localhost ip6-loopback
 	ff02::1		ip6-allnodes
 	ff02::2		ip6-allrouters
