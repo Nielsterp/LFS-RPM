@@ -22,7 +22,7 @@ for the directories.
 #	6.5.  Creating Directories
 #-----------------------------------------------------------------------------
 #	root directories
-install -vdm 755 %{buildroot}/{bin,boot,dev,etc,opt,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
+install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
 #	etc directories
 install -vdm 755 %{buildroot}/etc/{ld.so.conf.d,profile.d,skel,sysconfig}
 #	init script directories - this is for chkconfig
@@ -93,14 +93,14 @@ EOF
 #-----------------------------------------------------------------------------
 #	7.5.1. Creating Network Interface Configuration Files
 #-----------------------------------------------------------------------------
-cat > %{buildroot}/etc/sysconfig/ifconfig.enp3s0 <<- "EOF"
+cat > %{buildroot}/etc/sysconfig/ifconfig.eth0 <<- "EOF"
 	ONBOOT=yes
-	IFACE=enp3s0
+	IFACE=enp7s0
 	SERVICE=ipv4-static
-	IP=192.168.0.108
-	GATEWAY=192.168.0.1
+	IP=192.168.1.2
+	GATEWAY=192.168.1.1
 	PREFIX=24
-	BROADCAST=192.168.0.255
+	BROADCAST=192.168.1.255
 EOF
 #-----------------------------------------------------------------------------
 #	7.5.2. Creating the /etc/resolv.conf File
@@ -108,24 +108,24 @@ EOF
 cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 # Begin /etc/resolv.conf
 
-	domain     nielsterp.dk
-	nameserver 8.8.8.8
-	nameserver 8.8.4.4
+	domain     example.org
+	nameserver <IP address of your primary nameserver>
+	nameserver <IP address of your secondary nameserver>
 
 # End /etc/resolv.conf
 EOF
 #-----------------------------------------------------------------------------
 #	7.5.3. Configuring the system hostname
 #-----------------------------------------------------------------------------
-echo "webhotel" > %{buildroot}/etc/hostname
+echo "lfs.example.org" > %{buildroot}/etc/hostname
 #-----------------------------------------------------------------------------
 #	7.5.4. Customizing the /etc/hosts File
 #-----------------------------------------------------------------------------
 cat > %{buildroot}/etc/hosts <<- "EOF"
 # Begin /etc/hosts
 
-	127.0.0.1	localhost.localdomain	localhost
-	192.168.0.108	webhotel.nielsterp.dk	webhotel
+	127.0.0.1	localhost
+	192.168.1.2	lfs.example.org lfs
 	::1		localhost ip6-localhost ip6-loopback
 	ff02::1		ip6-allnodes
 	ff02::2		ip6-allrouters
@@ -635,7 +635,7 @@ EOF
 	%config(noreplace)	/etc/resolv.conf
 	%config(noreplace)	/etc/shells
 	%config(noreplace)	/etc/sysconfig/clock
-	%config(noreplace)	/etc/sysconfig/ifconfig.enp3s0
+	%config(noreplace)	/etc/sysconfig/ifconfig.eth0
 	%config(noreplace)	/etc/mtab
 	%config(noreplace)	/var/log/faillog
 	%config(noreplace)	/var/lock
