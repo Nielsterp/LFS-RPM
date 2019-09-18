@@ -7,7 +7,7 @@ Version:	8.4
 Release:	1
 License:	None
 Group:		LFS/Base
-Vendor:	Elizabeth
+Vendor:		Elizabeth
 URL:		http://www.linuxfromscratch.org
 %description
 The filesystem package is one of the basic packages that is installed
@@ -22,7 +22,7 @@ for the directories.
 #	6.5.  Creating Directories
 #-----------------------------------------------------------------------------
 #	root directories
-install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
+install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,proc,root,run,sbin,srv,sys,tmp,usr,var}
 #	etc directories
 install -vdm 755 %{buildroot}/etc/{ld.so.conf.d,profile.d,skel,sysconfig}
 #	init script directories - this is for chkconfig
@@ -93,14 +93,14 @@ EOF
 #-----------------------------------------------------------------------------
 #	7.5.1. Creating Network Interface Configuration Files
 #-----------------------------------------------------------------------------
-cat > %{buildroot}/etc/sysconfig/ifconfig.eth0 <<- "EOF"
+cat > %{buildroot}/etc/sysconfig/ifconfig.enp3s0 <<- "EOF"
 	ONBOOT=yes
-	IFACE=enp7s0
+	IFACE=enp3s0
 	SERVICE=ipv4-static
-	IP=192.168.1.2
-	GATEWAY=192.168.1.1
+	IP=192.168.0.108
+	GATEWAY=192.168.0.1
 	PREFIX=24
-	BROADCAST=192.168.1.255
+	BROADCAST=192.168.0.255
 EOF
 #-----------------------------------------------------------------------------
 #	7.5.2. Creating the /etc/resolv.conf File
@@ -108,9 +108,9 @@ EOF
 cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 # Begin /etc/resolv.conf
 
-	domain     example.org
-	nameserver <IP address of your primary nameserver>
-	nameserver <IP address of your secondary nameserver>
+	domain     nielsterp.dk
+	nameserver 8.8.8.8
+	nameserver 8.8.4.4
 
 # End /etc/resolv.conf
 EOF
@@ -246,11 +246,11 @@ cat > %{buildroot}/etc/fstab <<- "EOF"
 #	hdparm -I /dev/sda | grep NCQ --> can use barrier
 # file system  mount-point  type     options                                     dump  fsck
 #                                                                                      order
-#/dev/sdxx     /            ext4     defaults,barrier,noatime,noacl,data=ordered 1     1
+/dev/sda4      /            ext4     defaults,barrier,noatime,noacl,data=ordered 1     1
 #/dev/sdxx     /            ext4     defaults                                    1     1
 #/dev/sdxx     /boot        ext4     defaults                                    1     2
 	/dev/<xxx>     /            ext4     defaults                                    1     1
-	/dev/<yyy>     swap         swap     pri=1                                       0     0
+/dev/sda3     swap         swap     pri=1                                       0     0
 	proc           /proc        proc     nosuid,noexec,nodev                         0     0
 	sysfs          /sys         sysfs    nosuid,noexec,nodev                         0     0
 	devpts         /dev/pts     devpts   gid=5,mode=620                              0     0
@@ -504,7 +504,7 @@ cat > %{buildroot}/etc/skel/.bashrc <<- "EOF"
 	       source /etc/bashrc
 	fi
 # Set up user specific i18n variables
-#export LANG=<ll>_<CC>.<charmap><@modifiers>
+export LANG=DA_dk.<charmap><@modifiers>
 # End ~/.bashrc
 EOF
 cat > %{buildroot}/etc/skel/.bash_logout <<- "EOF"
@@ -518,145 +518,9 @@ cat > %{buildroot}/etc/skel/.bash_logout <<- "EOF"
 EOF
 #----------------------------------------------------------------------------
 %files 
-	%defattr(-,root,root)
-	%attr(600,root,root)	/var/log/btmp
-	%attr(664,root,utmp)	/var/log/lastlog
-	%attr(-,root,root)	/var/log/wtmp
-	%attr(750,root,root)	/root
-	%attr(1777,root,root)	/tmp
-	%attr(1777,root,root)	/var/tmp
-#	Directories
-	%dir	/home
-	%dir	/mnt
-	%dir	/boot
-	%dir	/var
-	%dir	/var/log
-	%dir	/var/mail
-	%dir	/var/local
-	%dir	/var/spool
-	%dir	/var/cache
-	%dir	/var/lib
-	%dir	/var/lib/locate
-	%dir	/var/lib/hwclock
-	%dir	/var/lib/misc
-	%dir	/var/lib/color
-	%dir	/var/opt
-	%dir	/etc
-#	/etc init script directories	
-	%dir	/etc/rc.d
-	%dir	/etc/rc.d/init.d
-	%dir	/etc/rc.d/rc0.d
-	%dir	/etc/rc.d/rc1.d
-	%dir	/etc/rc.d/rc2.d
-	%dir	/etc/rc.d/rc3.d
-	%dir	/etc/rc.d/rc4.d
-	%dir	/etc/rc.d/rc5.d
-	%dir	/etc/rc.d/rc6.d
-	%dir	/etc/rc.d/rc7.d
-		/etc/rc.d/rcS.d
-	%dir	/etc/sysconfig
-	%dir	/etc/ld.so.conf.d
-	%dir	/etc/opt
-	%dir	/etc/profile.d
-	%dir	/lib64
-	%dir	/usr
-	%dir	/usr/src
-	%dir	/usr/local
-	%dir	/usr/local/src
-	%dir	/usr/local/bin
-	%dir	/usr/local/sbin
-	%dir	/usr/local/lib
-	%dir	/usr/local/share
-	%dir	/usr/local/share/misc
-	%dir	/usr/local/share/terminfo
-	%dir	/usr/local/share/doc
-	%dir	/usr/local/share/zoneinfo
-	%dir	/usr/local/share/man
-	%dir	/usr/local/share/man/man3
-	%dir	/usr/local/share/man/man4
-	%dir	/usr/local/share/man/man7
-	%dir	/usr/local/share/man/man1
-	%dir	/usr/local/share/man/man6
-	%dir	/usr/local/share/man/man8
-	%dir	/usr/local/share/man/man5
-	%dir	/usr/local/share/man/man2
-	%dir	/usr/local/share/locale
-	%dir	/usr/local/share/dict
-	%dir	/usr/local/share/color
-	%dir	/usr/local/share/info
-	%dir	/usr/local/include
-	%dir	/usr/bin
-	%dir	/usr/sbin
-	%dir	/usr/lib
-	%dir	/usr/libexec
-	%dir	/usr/share
-	%dir	/usr/share/misc
-	%dir	/usr/share/terminfo
-	%dir	/usr/share/doc
-	%dir	/usr/share/zoneinfo
-	%dir	/usr/share/man
-	%dir	/usr/share/man/man3
-	%dir	/usr/share/man/man4
-	%dir	/usr/share/man/man7
-	%dir	/usr/share/man/man1
-	%dir	/usr/share/man/man6
-	%dir	/usr/share/man/man8
-	%dir	/usr/share/man/man5
-	%dir	/usr/share/man/man2
-	%dir	/usr/share/locale
-	%dir	/usr/share/dict
-	%dir	/usr/share/color
-	%dir	/usr/share/info
-	%dir	/usr/include
-	%dir	/bin
-	%dir	/media
-	%dir	/media/floppy
-	%dir	/media/cdrom
-	%dir	/sbin
-	%dir	/srv
-	%dir	/lib
-	%dir	/lib/firmware
-	%dir	/dev
-	%dir	/opt
-	%dir	/sys
-	%dir	/proc
-	%dir	/run
-#	Files
-	%config(noreplace)	/etc/group
-	%config(noreplace)	/etc/passwd
-	%config(noreplace)	/etc/fstab
-	%config(noreplace)	/etc/hostname
-	%config(noreplace)	/etc/hosts
-	%config(noreplace)	/etc/inittab
-	%config(noreplace)	/etc/inputrc
-	%config(noreplace)	/etc/lfs-release
-	%config(noreplace)	/etc/lsb-release
-	%config(noreplace)	/etc/modprobe.d/usb.conf
-	%config(noreplace)	/etc/resolv.conf
-	%config(noreplace)	/etc/shells
-	%config(noreplace)	/etc/sysconfig/clock
-	%config(noreplace)	/etc/sysconfig/ifconfig.eth0
-	%config(noreplace)	/etc/mtab
-	%config(noreplace)	/var/log/faillog
-	%config(noreplace)	/var/lock
-	%config(noreplace)	/var/run
-#-----------------------------------------------------------------------------
-#	BLFS scripts	-	About System Users and Groups
-#-----------------------------------------------------------------------------
-	%config(noreplace)	/etc/bashrc
-	%config(noreplace)	/etc/profile
-	%config(noreplace)	/etc/vimrc
-	%config(noreplace)	/etc/profile.d/bash_completion.sh
-	%config(noreplace)	/etc/profile.d/dircolors.sh
-	%config(noreplace)	/etc/profile.d/extrapaths.sh
-	%config(noreplace)	/etc/profile.d/i18n.sh
-	%config(noreplace)	/etc/profile.d/readline.sh
-	%config(noreplace)	/etc/profile.d/umask.sh
-	%config(noreplace)	/etc/skel/.bash_logout
-	%config(noreplace)	/etc/skel/.bash_profile
-	%config(noreplace)	/etc/skel/.bashrc
-	%config(noreplace)	/etc/skel/.profile
-	%config(noreplace)	/etc/skel/.vimrc
+
+
+
 #-----------------------------------------------------------------------------
 %changelog
 *	Thu Mar 14 2019 baho-utot <baho-utot@columbus.rr.com> 8.4-1
