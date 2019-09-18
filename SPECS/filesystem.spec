@@ -518,6 +518,42 @@ cat > %{buildroot}/etc/skel/.bash_logout <<- "EOF"
 EOF
 #----------------------------------------------------------------------------
 %files 
+   /etc/bashrc
+   /etc/fstab
+   /etc/group
+   /etc/hostname
+   /etc/hosts
+   /etc/inittab
+   /etc/inputrc
+   /etc/lfs-release
+   /etc/lsb-release
+   /etc/modprobe.d/usb.conf
+   /etc/mtab
+   /etc/passwd
+   /etc/profile
+   /etc/profile.d/bash_completion.sh
+   /etc/profile.d/dircolors.sh
+   /etc/profile.d/extrapaths.sh
+   /etc/profile.d/i18n.sh
+   /etc/profile.d/readline.sh
+   /etc/profile.d/umask.sh
+   /etc/rc.d/rcS.d
+   /etc/resolv.conf
+   /etc/shells
+   /etc/skel/.bash_logout
+   /etc/skel/.bash_profile
+   /etc/skel/.bashrc
+   /etc/skel/.profile
+   /etc/skel/.vimrc
+   /etc/sysconfig/clock
+   /etc/sysconfig/ifconfig.enp3s0
+   /etc/vimrc
+   /var/lock
+   /var/log/btmp
+   /var/log/faillog
+   /var/log/lastlog
+   /var/log/wtmp
+   /var/run
 
 
 
