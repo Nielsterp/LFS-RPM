@@ -22,7 +22,7 @@ for the directories.
 #	6.5.  Creating Directories
 #-----------------------------------------------------------------------------
 #	root directories
-install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
+install -vdm 755 %{buildroot}/{bin,boot,dev,etc,opt,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
 #	etc directories
 install -vdm 755 %{buildroot}/etc/{ld.so.conf.d,profile.d,skel,sysconfig}
 #	init script directories - this is for chkconfig
